@@ -434,7 +434,7 @@ getBranchpointSequence <- function(query, uniqueId = "test",
     cluster <- parallel::makeCluster(cores)
     canonHits <- parallel::parLapply(cluster,f, getCanonical3SS)
     pyra <-
-        parallel::parLapply(cluster,queryAllPoints, getPPT)
+        parallel::parLapply(cluster,seq_along(queryAllPoints), function(x) getPPT(queryAllPoints[x]))
     parallel::stopCluster(cluster)
   }else{
     canonHits <- lapply(f, getCanonical3SS)
